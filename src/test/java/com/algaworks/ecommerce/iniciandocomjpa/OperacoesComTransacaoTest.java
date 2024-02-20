@@ -9,6 +9,65 @@ import org.junit.Test;
 import java.math.BigDecimal;
 
 public class OperacoesComTransacaoTest extends EntityManagerTest {
+    @Test
+    public void mostrarDiferencaPersistMerge() {
+        Produto produtoPersist = new Produto();
+        produtoPersist.setId(5);
+        produtoPersist.setNome("Smartphone One Plus");
+        produtoPersist.setDescricao("O processador mais rapido.");
+        produtoPersist.setPreco(new BigDecimal(2000));
+
+        entityManager.getTransaction().begin();
+        //Coloca na memória do EntityManager
+        entityManager.persist(produtoPersist);
+        //Aqui será realizado o update do objeto gerenciado
+        produtoPersist.setNome("Smartphone Two Plus");
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        produtoPersist = entityManager.find(Produto.class, produtoPersist.getId());
+        Assert.assertNotNull(produtoPersist);
+
+        Produto produtoMerge = new Produto();
+        produtoMerge.setId(6);
+        produtoMerge.setNome("Notebook Dell");
+        produtoMerge.setDescricao("O melhor da categoria.");
+        produtoMerge.setPreco(new BigDecimal(2000));
+
+        entityManager.getTransaction().begin();
+        //Coloca na memória do EntityManager como uma cópia
+        entityManager.merge(produtoMerge);
+        //Aqui não terá efeito algum, não é uma instância gerenciada
+        //Para funcionar deveriamos fazer: produtoMerge = entityManager.merge(produtoMerge);
+        produtoMerge = entityManager.merge(produtoMerge);
+        produtoMerge.setNome("Notebook Dell 2");
+
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        produtoMerge = entityManager.find(Produto.class, produtoMerge.getId());
+        Assert.assertNotNull(produtoMerge);
+    }
+    @Test
+    public void inserirObjetoComMerge() {
+        Produto produto = new Produto();
+        produto.setId(4);
+        produto.setNome("Microfone Rode Videmic");
+        produto.setDescricao("A melhor qualidade de som");
+        produto.setPreco(new BigDecimal(1000));
+
+        entityManager.getTransaction().begin();
+        //Joga o objeto na memória
+        entityManager.merge(produto);
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        produto = entityManager.find(Produto.class, produto.getId());
+        Assert.assertNotNull(produto);
+    }
 
     @Test
     public void atualizarObjetoGerenciado() {
