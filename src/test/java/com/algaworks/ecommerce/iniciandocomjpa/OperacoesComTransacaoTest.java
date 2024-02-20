@@ -11,6 +11,25 @@ import java.math.BigDecimal;
 public class OperacoesComTransacaoTest extends EntityManagerTest {
 
     @Test
+    public void atualizarObjeto() {
+        Produto produto = new Produto();
+        produto.setId(1);
+        produto.setNome("Kindle Paperwhite");
+        //produto.setDescricao("Conheça o novo Kindle");
+        //produto.setPreco(new BigDecimal(599));
+
+        entityManager.getTransaction().begin();
+        entityManager.merge(produto);
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        produto = entityManager.find(Produto.class, produto.getId());
+        Assert.assertNotNull(produto);
+        Assert.assertEquals("Kindle Paperwhite", produto.getNome());
+    }
+
+    @Test
     public void removerObjeto() {
         Produto produto = entityManager.find(Produto.class, 3);
 
