@@ -1,0 +1,41 @@
+package com.algaworks.ecommerce.iniciandocomjpa;
+
+import com.algaworks.ecommerce.EntityManagerTest;
+import com.algaworks.model.Produto;
+import org.hibernate.tool.schema.extract.internal.SequenceNameExtractorImpl;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.math.BigDecimal;
+
+public class OperacoesComTransacaoTest extends EntityManagerTest {
+    @Test
+    public void inserirOPrimeiroObjeto() {
+        Produto produto = new Produto();
+        produto.setId(2);
+        produto.setNome("Camera Canon");
+        produto.setDescricao("A melhor definição para suas fotos");
+        produto.setPreco(new BigDecimal(5000));
+
+        entityManager.getTransaction().begin();
+        //Joga o objeto na memória
+        entityManager.persist(produto);
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        Assert.assertNotNull(produtoVerificacao);
+    }
+    @Test
+    public void abrirEFecharATransacao() {
+        //Produto poduto = new Produto();
+        entityManager.getTransaction().begin();
+
+        //entityManager.persist(poduto);
+        //entityManager.merge(poduto);
+        //entityManager.remove(poduto);
+
+        entityManager.getTransaction().commit();
+    }
+}
