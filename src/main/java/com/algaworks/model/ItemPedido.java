@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -11,13 +12,17 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Cliente {
+public class ItemPedido {
 
     @EqualsAndHashCode.Include
     @Id
     private int id;
 
-    private String nome;
+    private Integer pedidoId;
 
-    private SexoCliente sexoCliente;
+    private Integer produtoId;
+
+    private BigDecimal precoProduto;
+
+    private Integer quantidade;
 }
