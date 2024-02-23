@@ -40,7 +40,10 @@ public class PrimeiroCrudTest extends EntityManagerTest {
     @Test
     public void testRemoverCliente() {
         Cliente cliente = entityManager.find(Cliente.class, 2);
+
+        entityManager.getTransaction().begin();
         entityManager.remove(cliente);
+        entityManager.getTransaction().commit();
 
         cliente = entityManager.find(Cliente.class, 2);
         Assert.assertNull(cliente);
