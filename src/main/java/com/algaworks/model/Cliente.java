@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Getter
 @Setter
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "cliente")
 public class Cliente {
 
     @EqualsAndHashCode.Include
@@ -19,5 +21,5 @@ public class Cliente {
 
     private String nome;
 
-    private SexoCliente sexoCliente;
+    private SexoCliente sexo;
 }
