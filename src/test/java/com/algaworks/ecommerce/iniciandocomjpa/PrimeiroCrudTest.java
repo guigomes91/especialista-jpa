@@ -2,13 +2,14 @@ package com.algaworks.ecommerce.iniciandocomjpa;
 
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.model.Cliente;
+import com.algaworks.model.SexoCliente;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class PrimeiroCrudTest extends EntityManagerTest {
     @Test
     public void testInserirCliente() {
-        Cliente cliente = new Cliente(3, "Guilherme");
+        Cliente cliente = new Cliente(3, "Guilherme", SexoCliente.MASCULINO);
         entityManager.getTransaction().begin();
         entityManager.persist(cliente);
         entityManager.getTransaction().commit();
