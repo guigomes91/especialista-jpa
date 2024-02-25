@@ -2,7 +2,6 @@ package com.algaworks.ecommerce.iniciandocomjpa;
 
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.model.Produto;
-import org.hibernate.tool.schema.extract.internal.SequenceNameExtractorImpl;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -26,7 +25,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
     @Test
     public void mostrarDiferencaPersistMerge() {
         Produto produtoPersist = new Produto();
-        produtoPersist.setId(5);
+        //produtoPersist.setId(5); Comentado porque estamos utilizando IDENTITY
         produtoPersist.setNome("Smartphone One Plus");
         produtoPersist.setDescricao("O processador mais rapido.");
         produtoPersist.setPreco(new BigDecimal(2000));
@@ -44,7 +43,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         Assert.assertNotNull(produtoPersist);
 
         Produto produtoMerge = new Produto();
-        produtoMerge.setId(6);
+        //produtoMerge.setId(6); Comentado porque estamos utilizando IDENTITY
         produtoMerge.setNome("Notebook Dell");
         produtoMerge.setDescricao("O melhor da categoria.");
         produtoMerge.setPreco(new BigDecimal(2000));
@@ -67,19 +66,19 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
     @Test
     public void inserirObjetoComMerge() {
         Produto produto = new Produto();
-        produto.setId(4);
+        //produto.setId(4); Comentado porque estamos utilizando IDENTITY
         produto.setNome("Microfone Rode Videmic");
         produto.setDescricao("A melhor qualidade de som");
         produto.setPreco(new BigDecimal(1000));
 
         entityManager.getTransaction().begin();
         //Joga o objeto na memória
-        entityManager.merge(produto);
+        Produto produtoNew = entityManager.merge(produto);
         entityManager.getTransaction().commit();
 
         entityManager.clear();
 
-        produto = entityManager.find(Produto.class, produto.getId());
+        produto = entityManager.find(Produto.class, produtoNew.getId());
         Assert.assertNotNull(produto);
     }
 
@@ -100,20 +99,20 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
     @Test
     public void atualizarObjeto() {
         Produto produto = new Produto();
-        produto.setId(1);
+        //produto.setId(1); Comentado porque estamos utilizando IDENTITY
         produto.setNome("Kindle Paperwhite");
         //produto.setDescricao("Conheça o novo Kindle");
         //produto.setPreco(new BigDecimal(599));
 
         entityManager.getTransaction().begin();
-        entityManager.merge(produto);
+        Produto produtoNew = entityManager.merge(produto);
         entityManager.getTransaction().commit();
 
         entityManager.clear();
 
-        produto = entityManager.find(Produto.class, produto.getId());
+        produto = entityManager.find(Produto.class, produtoNew.getId());
         Assert.assertNotNull(produto);
-        Assert.assertEquals("Kindle Paperwhite", produto.getNome());
+        Assert.assertEquals("Kindle Paperwhite", produtoNew.getNome());
     }
 
     @Test
@@ -133,7 +132,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
     @Test
     public void inserirOPrimeiroObjeto() {
         Produto produto = new Produto();
-        produto.setId(2);
+        //produto.setId(2); Comentado porque estamos utilizando IDENTITY
         produto.setNome("Camera Canon");
         produto.setDescricao("A melhor definição para suas fotos");
         produto.setPreco(new BigDecimal(5000));
