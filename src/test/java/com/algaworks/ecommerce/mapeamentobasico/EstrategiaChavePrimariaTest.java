@@ -9,7 +9,7 @@ import org.junit.Test;
 public class EstrategiaChavePrimariaTest extends EntityManagerTest {
 
     @Test
-    public void testEstrategiaAuto() {
+    public void testEstrategiaChave() {
         Categoria categoria = new Categoria();
         categoria.setNome("Eletronico");
 
