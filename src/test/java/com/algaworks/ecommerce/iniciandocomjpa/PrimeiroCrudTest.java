@@ -9,7 +9,9 @@ import org.junit.Test;
 public class PrimeiroCrudTest extends EntityManagerTest {
     @Test
     public void testInserirCliente() {
-        Cliente cliente = new Cliente(3, "Guilherme", SexoCliente.MASCULINO);
+        Cliente cliente = new Cliente();
+        cliente.setNome("Guilherme");
+        cliente.setSexo(SexoCliente.MASCULINO);
         entityManager.getTransaction().begin();
         entityManager.persist(cliente);
         entityManager.getTransaction().commit();

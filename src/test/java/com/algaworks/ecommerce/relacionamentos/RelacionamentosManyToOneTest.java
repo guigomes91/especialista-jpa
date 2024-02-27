@@ -1,4 +1,4 @@
-package com.algaworks.ecommerce.mapeamentobasico.relacionamentos;
+package com.algaworks.ecommerce.relacionamentos;
 
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.model.*;
