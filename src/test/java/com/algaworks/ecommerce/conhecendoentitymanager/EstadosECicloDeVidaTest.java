@@ -9,22 +9,22 @@ public class EstadosECicloDeVidaTest extends EntityManagerTest {
 
     @Test
     public void analisarEstados() {
-        //Transiente
+        //Transient
         Categoria categoriaNovo = new Categoria();
 
-        //Gerenciada
+        //Managed
         Categoria categoriaNovoGerenciada = entityManager.merge(categoriaNovo);
 
-        //Gerenciada
+        //Managed
         Categoria categoriaGerenciada = entityManager.find(Categoria.class, 1);
 
-        //Removida
+        //Removed
         entityManager.remove(categoriaGerenciada);
 
-        //Voltou para gerenciada
+        //Back to Removed
         entityManager.persist(categoriaGerenciada);
 
-        //Desanexada
+        //Detach
         entityManager.detach(categoriaGerenciada);
     }
 }
