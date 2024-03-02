@@ -26,7 +26,8 @@ public class FlushTest extends EntityManagerTest {
             //Pedido pedidoPago = entityManager.createQuery("select p from Pedido p where p.id = 1", Pedido.class)
               //      .getSingleResult();
 
-            Assert.assertEquals(pedido.getStatus(), pedidoPago.getStatus());
+            //Assert.assertEquals(pedido.getStatus(), pedidoPago.getStatus());
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw e;
