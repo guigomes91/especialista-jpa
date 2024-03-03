@@ -23,7 +23,7 @@ public class Pedido {
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "cliente_id")
