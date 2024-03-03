@@ -36,7 +36,7 @@ public class RelacionamentosOneToManyTest extends EntityManagerTest {
         entityManager.clear();
 
         cliente = entityManager.find(Cliente.class, cliente.getId());
-        itemPedido = entityManager.find(ItemPedido.class, itemPedido.getId());
+        itemPedido = entityManager.find(ItemPedido.class, new ItemPedidoId(1, 1));
         Assert.assertNotNull(itemPedido.getPedido());
         Assert.assertNotNull(itemPedido.getProduto());
 
