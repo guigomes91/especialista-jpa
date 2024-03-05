@@ -1,12 +1,15 @@
 package com.algaworks.ecommerce.relacionamentos;
 
 import com.algaworks.ecommerce.EntityManagerTest;
+import com.algaworks.ecommerce.mapeamentoavancado.SalvandoArquivosTest;
 import com.algaworks.model.*;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Objects;
 
 public class RelacionamentosOneToOneTest extends EntityManagerTest {
 
@@ -31,7 +34,7 @@ public class RelacionamentosOneToOneTest extends EntityManagerTest {
     public void verificarRelacionamentoNotaEPedidoTest() {
         Pedido pedido = entityManager.find(Pedido.class, 1);
         NotaFiscal notaFiscal = new NotaFiscal();
-        notaFiscal.setXml("123455");
+        notaFiscal.setXml(carregarNotaFiscal());
         notaFiscal.setDataEmissao(new Date());
         notaFiscal.setPedido(pedido);
 
@@ -43,5 +46,15 @@ public class RelacionamentosOneToOneTest extends EntityManagerTest {
         pedido = entityManager.find(Pedido.class, pedido.getId());
         Assert.assertNotNull(pedido.getNotaFiscal());
         Assert.assertEquals("123455", pedido.getNotaFiscal().getXml());
+    }
+
+    private static byte[] carregarNotaFiscal() {
+        try {
+            return Objects.requireNonNull(SalvandoArquivosTest.class.getResourceAsStream(
+                    "/nota-fiscal.xml"
+            )).readAllBytes();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
