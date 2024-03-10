@@ -12,18 +12,12 @@ import java.util.List;
 
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @EntityListeners({ GerarNotaFiscalListener.class, GenericoListener.class })
 @Entity
 @Table(name = "pedido")
-public class Pedido {
-
-    @EqualsAndHashCode.Include
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Pedido extends EntidadeBaseInteger {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "cliente_id")
@@ -50,7 +44,7 @@ public class Pedido {
     private EnderecoEntregaPedido enderecoEntrega;
 
     @OneToOne(mappedBy = "pedido")
-    private PagamentoCartao pagamento;
+    private Pagamento pagamento;
 
     @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER)
     private List<ItemPedido> itens;

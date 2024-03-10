@@ -9,23 +9,21 @@ import java.util.Map;
 
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@SecondaryTable(name = "cliente_detalhe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id"))
+@SecondaryTable(
+        name = "cliente_detalhe",
+        pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id")
+)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "cliente")
-public class Cliente {
-
-    @EqualsAndHashCode.Include
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Cliente extends EntidadeBaseInteger {
 
     private String nome;
 
     @ElementCollection
-    @CollectionTable(name = "cliente_contato",
+    @CollectionTable(
+            name = "cliente_contato",
             joinColumns = @JoinColumn(name = "cliente_id")
     )
     @MapKeyColumn(name = "tipo")
@@ -39,7 +37,8 @@ public class Cliente {
     @Enumerated(EnumType.STRING)
     private SexoCliente sexo;
 
-    @Column(name = "data_nascimento",
+    @Column(
+            name = "data_nascimento",
             table = "cliente_detalhe"
     )
     private LocalDate dataNascimento;
