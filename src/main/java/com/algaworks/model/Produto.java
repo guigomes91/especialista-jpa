@@ -14,13 +14,20 @@ import java.util.List;
 @Setter
 @EntityListeners({ GenericoListener.class })
 @Entity
-@Table(name = "produto")
+@Table(
+        name = "produto",
+        uniqueConstraints = { @UniqueConstraint(name = "unq_nome", columnNames = { "nome" }) },
+        indexes = { @Index(name = "idx_nome", columnList = "nome") }
+)
 public class Produto extends EntidadeBaseInteger {
 
+    @Column(length = 100, nullable = false) // nome varchar(100) not null
     private String nome;
 
+    @Column(columnDefinition = "varchar(275) not null default 'descricao'")
     private String descricao;
 
+    @Column(precision = 10, scale = 2) // preco decimal(10, 2)
     private BigDecimal preco;
 
     @Column(name = "data_criacao", updatable = false)

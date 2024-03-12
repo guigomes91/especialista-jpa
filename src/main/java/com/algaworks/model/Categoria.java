@@ -10,7 +10,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "categoria")
+@Table(
+        name = "categoria",
+        uniqueConstraints = { @UniqueConstraint(name = "unq_nome", columnNames = { "nome" }) }
+)
 public class Categoria extends EntidadeBaseInteger {
 
     private String nome;
