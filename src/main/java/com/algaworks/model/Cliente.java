@@ -16,9 +16,14 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "cliente")
+@Table(
+        name = "cliente",
+        uniqueConstraints = { @UniqueConstraint(name = "unq_cpf", columnNames = { "cpf" }) },
+        indexes = { @Index(name = "idx_nome", columnList = "nome") }
+)
 public class Cliente extends EntidadeBaseInteger {
 
+    private String cpf;
     private String nome;
 
     @ElementCollection
