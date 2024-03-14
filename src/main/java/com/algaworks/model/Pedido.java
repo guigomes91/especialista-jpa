@@ -26,7 +26,7 @@ public class Pedido extends EntidadeBaseInteger {
     @Column(name = "data_criacao", updatable = false)
     private LocalDateTime dataCriacao;
 
-    @Column(name = "data_conclusao")
+    @Column(name = "data_conclusao", nullable = false)
     private LocalDateTime dataConclusao;
 
     @Column(name = "data_ultima_atualizacao", insertable = false)
@@ -35,7 +35,7 @@ public class Pedido extends EntidadeBaseInteger {
     @OneToOne(mappedBy = "pedido")
     private NotaFiscal notaFiscal;
 
-    @Column(precision = 19, scale = 2, nullable = false)
+    @Column(nullable = false)
     private BigDecimal total;
 
     @Column(length = 30, nullable = false)

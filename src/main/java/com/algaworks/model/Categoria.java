@@ -16,6 +16,7 @@ import java.util.List;
 )
 public class Categoria extends EntidadeBaseInteger {
 
+    @Column(length = 100, nullable = false)
     private String nome;
 
     @ManyToOne
