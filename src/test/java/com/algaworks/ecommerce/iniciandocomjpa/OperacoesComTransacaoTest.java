@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public class OperacoesComTransacaoTest extends EntityManagerTest {
     @Test
@@ -29,6 +30,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produtoPersist.setNome("Smartphone One Plus");
         produtoPersist.setDescricao("O processador mais rapido.");
         produtoPersist.setPreco(new BigDecimal(2000));
+        produtoPersist.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
         //Coloca na memória do EntityManager
@@ -47,14 +49,18 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produtoMerge.setNome("Notebook Dell");
         produtoMerge.setDescricao("O melhor da categoria.");
         produtoMerge.setPreco(new BigDecimal(2000));
+        produtoMerge.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
         //Coloca na memória do EntityManager como uma cópia
-        entityManager.merge(produtoMerge);
         //Aqui não terá efeito algum, não é uma instância gerenciada
+        //entityManager.merge(produtoMerge);
+
         //Para funcionar deveriamos fazer: produtoMerge = entityManager.merge(produtoMerge);
         produtoMerge = entityManager.merge(produtoMerge);
         produtoMerge.setNome("Notebook Dell 2");
+        produtoMerge.setDescricao("Dell 20");
+        produtoMerge.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().commit();
 
@@ -70,6 +76,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produto.setNome("Microfone Rode Videmic");
         produto.setDescricao("A melhor qualidade de som");
         produto.setPreco(new BigDecimal(1000));
+        produto.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
         //Joga o objeto na memória
@@ -101,8 +108,8 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         Produto produto = new Produto();
         //produto.setId(1); Comentado porque estamos utilizando IDENTITY
         produto.setNome("Kindle Paperwhite");
-        //produto.setDescricao("Conheça o novo Kindle");
-        //produto.setPreco(new BigDecimal(599));
+        produto.setDescricao("Kingleee");
+        produto.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
         Produto produtoNew = entityManager.merge(produto);
@@ -136,6 +143,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produto.setNome("Camera Canon");
         produto.setDescricao("A melhor definição para suas fotos");
         produto.setPreco(new BigDecimal(5000));
+        produto.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
         //Joga o objeto na memória

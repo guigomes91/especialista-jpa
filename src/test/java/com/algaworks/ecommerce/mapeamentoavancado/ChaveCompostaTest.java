@@ -19,6 +19,7 @@ public class ChaveCompostaTest extends EntityManagerTest {
         pedido.setDataCriacao(LocalDateTime.now());
         pedido.setStatus(StatusPedido.AGUARDANDO);
         pedido.setTotal(produto.getPreco());
+        pedido.setDataConclusao(LocalDateTime.now());
 
         ItemPedido itemPedido = new ItemPedido();
         //itemPedido.setPedidoId(pedido.getId()); IdClass
