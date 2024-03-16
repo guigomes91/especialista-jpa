@@ -13,6 +13,7 @@ public class MapeamentoEnumeracoesTest extends EntityManagerTest {
         //cliente.setId(4); Comentado porque estamos utilizando IDENTITY
         cliente.setNome("José Mineiro");
         cliente.setSexo(SexoCliente.MASCULINO);
+        cliente.setCpf("123131231321");
 
         entityManager.getTransaction().begin();
         entityManager.persist(cliente);

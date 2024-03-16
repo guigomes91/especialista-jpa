@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Objects;
@@ -62,6 +63,7 @@ public class SalvandoArquivosTest extends EntityManagerTest {
         Assert.assertTrue(produto.getFoto().length > 0);
 
         try {
+            deleteIfileExists("raca-de-cachorro-pequeno.jpg", "C:/Users/guilh");
             OutputStream out = new FileOutputStream(
                     Files.createFile(Paths.get(
                             System.getProperty("user.home") + "/raca-de-cachorro-pequeno.jpg")).toFile());
@@ -78,6 +80,19 @@ public class SalvandoArquivosTest extends EntityManagerTest {
             )).readAllBytes();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void deleteIfileExists(String fileName, String path) {
+        Path pathFound = Paths.get(path, fileName);
+
+        if (Files.exists(pathFound)) {
+            try {
+                Files.delete(pathFound);
+                System.out.println("O arquivo foi removido com sucesso!");
+            } catch (IOException e) {
+                System.err.println("Erro ao remover o arquivo: " + e.getMessage());
+            }
         }
     }
 }

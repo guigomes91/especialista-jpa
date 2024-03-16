@@ -32,6 +32,7 @@ public class MapeamentoObjetoEmbutidoTest extends EntityManagerTest {
         pedido.setTotal(new BigDecimal(1000));
         pedido.setEnderecoEntrega(endereco);
         pedido.setCliente(cliente);
+        pedido.setDataConclusao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
         entityManager.persist(pedido);

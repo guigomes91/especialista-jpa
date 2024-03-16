@@ -21,6 +21,7 @@ public class RelacionamentosOneToManyTest extends EntityManagerTest {
         pedido.setDataCriacao(LocalDateTime.now());
         pedido.setTotal(new BigDecimal(1000));
         pedido.setCliente(cliente);
+        pedido.setDataConclusao(LocalDateTime.now());
 
         ItemPedido itemPedido = new ItemPedido();
         itemPedido.setId(new ItemPedidoId());
@@ -54,6 +55,7 @@ public class RelacionamentosOneToManyTest extends EntityManagerTest {
         pedido.setDataCriacao(LocalDateTime.now());
         pedido.setTotal(new BigDecimal(1000));
         pedido.setCliente(cliente);
+        pedido.setDataConclusao(LocalDateTime.now());
 
         ItemPedido itemPedido = new ItemPedido();
         itemPedido.setId(new ItemPedidoId());
