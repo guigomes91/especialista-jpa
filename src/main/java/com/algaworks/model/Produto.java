@@ -43,11 +43,11 @@ public class Produto extends EntidadeBaseInteger {
     @JoinTable(name = "produto_categoria",
             joinColumns = @JoinColumn(
                     name = "produto_id",
-                    foreignKey = @ForeignKey(name = "fk_produto")
+                    foreignKey = @ForeignKey(name = "fk_produto_categoria_produto")
             ),
             inverseJoinColumns = @JoinColumn(
                     name = "categoria_id",
-                    foreignKey = @ForeignKey(name = "fk_produto_categoria"),
+                    foreignKey = @ForeignKey(name = "fk_produto_categoria_categoria"),
                     nullable = false
             )
     )
