@@ -25,6 +25,13 @@
 
             <property name="javax.persistence.sql-load-script-source" value="META-INF/banco-de-dados/dados-iniciais.sql"/>
 
+            <property name="jakarta.persistence.schema-generation.scripts.action"
+                      value="none"/>
+            <property name="jakarta.persistence.schema-generation.scripts.create-target"
+                      value="C:/tmp/sql/script-criacao-exportado.sql"/>
+            <property name="jakarta.persistence.schema-generation.scripts.drop-target"
+                      value="C:/tmp/sql/script-remocao-exportado.sql"/>
+
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
 
             <property name="hibernate.show_sql" value="true" />
