@@ -51,7 +51,7 @@ public class Pedido extends EntidadeBaseInteger {
     @OneToOne(mappedBy = "pedido")
     private Pagamento pagamento;
 
-    @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER)
     private List<ItemPedido> itens;
 
     public boolean isPago() {
