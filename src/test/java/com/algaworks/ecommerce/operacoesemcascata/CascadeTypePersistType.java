@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 
 public class CascadeTypePersistType extends EntityManagerTest {
 
@@ -69,7 +70,7 @@ public class CascadeTypePersistType extends EntityManagerTest {
         entityManager.clear();
 
         Pedido pedidoVerificacao = entityManager.find(Pedido.class, pedido.getId());
-        Assert.assertNotNull(pedido);
+        Assert.assertNotNull(pedidoVerificacao);
     }
 
     //@Test
@@ -95,4 +96,27 @@ public class CascadeTypePersistType extends EntityManagerTest {
         Cliente clienteVerificacao = entityManager.find(Cliente.class, cliente.getId());
         Assert.assertNotNull(cliente);
     }
+
+    @Test
+    public void persistirProdutoComCategoria() {
+        Produto produto = new Produto();
+        produto.setNome("Teste 1");
+        produto.setDataCriacao(LocalDateTime.now());
+        produto.setTags(List.of("TESTE TAG"));
+
+        Categoria categoriPai = entityManager.find(Categoria.class, 1);
+
+        Categoria categoriaFilha = new Categoria();
+        categoriaFilha.setNome("CATEGORIA FILHA");
+        categoriaFilha.setCategoriaPai(categoriPai);
+        produto.setCategorias(List.of(categoriaFilha));
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(produto);
+        entityManager.getTransaction().commit();
+
+        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        Assert.assertNotNull(produtoVerificacao.getCategorias());
+    }
+
 }
