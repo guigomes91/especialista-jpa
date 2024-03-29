@@ -58,12 +58,13 @@ public class Pedido extends EntidadeBaseInteger {
         return StatusPedido.PAGO.equals(status);
     }
 
-    //@PrePersist
-    //@PreUpdate
     public void calcularTotal() {
         if (CollectionUtils.isNotEmpty(this.itens)) {
-            total = itens.stream().map(ItemPedido::getPrecoProduto)
+            total = itens.stream().map(
+                        item -> new BigDecimal(item.getQuantidade()).multiply(item.getPrecoProduto()))
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
+        } else {
+            total = BigDecimal.ZERO;
         }
     }
 

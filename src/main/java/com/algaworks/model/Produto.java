@@ -39,7 +39,7 @@ public class Produto extends EntidadeBaseInteger {
     @Column(length = 1000)
     private byte[] foto;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "produto_categoria",
             joinColumns = @JoinColumn(
                     name = "produto_id",
