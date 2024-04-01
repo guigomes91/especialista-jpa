@@ -7,10 +7,11 @@ insert into cliente (id, nome, cpf) values (2, 'João Pedro', '1234567');
 insert into cliente_detalhe (sexo, cliente_id) values ('MASCULINO', 1);
 insert into cliente_detalhe (sexo, cliente_id) values ('MASCULINO', 2);
 
-insert into pedido (id, cliente_id, data_criacao, total, status, data_conclusao) values (1, 1, sysdate(), 998.0, 'AGUARDANDO', date_sub(sysdate(), interval 1 day));
+insert into pedido (id, cliente_id, data_criacao, total, status, data_conclusao) values (1, 1, sysdate(), 2398.0, 'AGUARDANDO', date_sub(sysdate(), interval 1 day));
 insert into pedido (id, cliente_id, data_criacao, total, status, data_conclusao) values (2, 1, sysdate(), 499.0, 'AGUARDANDO', date_sub(sysdate(), interval 1 day));
 
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (1, 1, 499, 2);
+insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (1, 3, 1400, 1);
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (2, 1, 499, 1);
 
 insert into pagamento (pedido_id, status, numero_cartao, tipo_pagamento, codigo_barras) values (2, 'PROCESSANDO', '123', 'cartao', '1234569877-98787-8878-1000024');
