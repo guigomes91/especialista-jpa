@@ -10,6 +10,15 @@ import java.util.List;
 public class JoinTest extends EntityManagerTest {
 
     @Test
+    public void fazerRightJoin() {
+        String jpql = "select p from Pedido p right join p.pagamento pag on pag.status = 'PROCESSANDO'";
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+        java.util.List<Object[]> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+    }
+
+    @Test
     public void fazerLeftJoin() {
         String jpql = "select p from Pedido p left join p.pagamento pag on pag.status = 'PROCESSANDO'";
 
