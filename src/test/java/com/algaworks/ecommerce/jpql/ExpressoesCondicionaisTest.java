@@ -2,14 +2,45 @@ package com.algaworks.ecommerce.jpql;
 
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.model.Cliente;
+import com.algaworks.model.Pedido;
 import com.algaworks.model.Produto;
 import org.junit.Assert;
 import org.junit.Test;
 
 import javax.persistence.TypedQuery;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ExpressoesCondicionaisTest extends EntityManagerTest {
+
+    @Test
+    public void usarMaiorMenorEmData() {
+        String jpql = "select p from Pedido p where p.dataConclusao >= :dataInicial and p.dataConclusao <= :dataFinal";
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
+        typedQuery.setParameter("dataInicial", LocalDateTime.now().minusDays(2));
+        typedQuery.setParameter("dataFinal", LocalDateTime.now());
+
+        List<Pedido> pedidos = typedQuery.getResultList();
+        System.out.println(pedidos.get(0).getTotal());
+
+        Assert.assertEquals(pedidos.size(), 1);
+    }
+
+    @Test
+    public void usarMaiorMenor() {
+        String jpql = "select p from Produto p where p.preco >= :precoInicial and p.preco <= :precoFinal";
+
+        TypedQuery<Produto> typedQuery = entityManager.createQuery(jpql, Produto.class);
+        typedQuery.setParameter("precoInicial", new BigDecimal(400));
+        typedQuery.setParameter("precoFinal", new BigDecimal(1500));
+
+        List<Produto> produtos = typedQuery.getResultList();
+        produtos.forEach(produto -> System.out.println("nome produto: " + produto.getNome()));
+
+        Assert.assertFalse(produtos.isEmpty());
+    }
 
     @Test
     public void usarExpressaoCondicionalLike() {
