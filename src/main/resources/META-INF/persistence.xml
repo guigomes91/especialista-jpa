@@ -24,7 +24,6 @@
                       value="META-INF/banco-de-dados/script-remocao.sql"/>
 
             <property name="javax.persistence.sql-load-script-source" value="META-INF/banco-de-dados/dados-iniciais.sql"/>
-
             <property name="jakarta.persistence.schema-generation.scripts.action"
                       value="none"/>
             <property name="jakarta.persistence.schema-generation.scripts.create-target"
