@@ -2,7 +2,6 @@ package com.algaworks.ecommerce.jpql;
 
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.model.Categoria;
-import com.algaworks.model.Pedido;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,7 +11,7 @@ import java.util.List;
 public class PaginacaoJPQLTest extends EntityManagerTest {
 
     @Test
-    public void usarOperadores() {
+    public void usarPaginacao() {
         String jpql = "select c from Categoria c order by c.nome";
 
         TypedQuery<Categoria> typedQuery = entityManager.createQuery(jpql, Categoria.class);
