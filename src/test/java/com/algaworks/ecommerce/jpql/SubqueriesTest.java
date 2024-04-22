@@ -11,6 +11,72 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class SubqueriesTest extends EntityManagerTest {
+
+    @Test
+    public void pesquisarComInProdutoCategoriaDois() {
+        String jpql = """
+                select
+                    p
+                from
+                    Pedido p
+                where p.id in
+                    (select
+                        p2.id
+                    from
+                        ItemPedido ip2
+                    join ip2.pedido p2
+                    join ip2.produto pro
+                    join pro.categorias cat
+                    where
+                        cat.id = 2)
+                """;
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
+
+        List<Pedido> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(obj -> System.out.println("ID: " + obj.getId()));
+    }
+
+    @Test
+    public void pesquisarComExists() {
+        String jpql = """
+                select
+                    p
+                from
+                    Produto p
+                where exists
+                (select 1 from ItemPedido ip2 join ip2.produto p2 where p2 = p)
+                """;
+
+        TypedQuery<Produto> typedQuery = entityManager.createQuery(jpql, Produto.class);
+
+        List<Produto> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(obj -> System.out.println("ID: " + obj.getId()));
+    }
+
+    @Test
+    public void pesquisarComIN() {
+        String jpql = """
+                select
+                    p
+                from
+                    Pedido p
+                where
+                    p.id in (select p2.id from ItemPedido i2 join i2.pedido p2 join i2.produto pro2 where pro2.preco > 100)
+                """;
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
+
+        List<Pedido> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(obj -> System.out.println("ID: " + obj.getId()));
+    }
+
     @Test
     public void pesquisarSubqueries() {
         //O produto ou os produtos mais caros da base
