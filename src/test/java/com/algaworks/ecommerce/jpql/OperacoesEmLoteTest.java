@@ -17,6 +17,19 @@ public class OperacoesEmLoteTest extends EntityManagerTest {
     private static final int LIMITE_INSERCOES_EM_MEMORIA = 4;
 
     @Test
+    public void removerEmLote() {
+        entityManager.getTransaction().begin();
+
+        String jpql = """
+                delete from Produto p where p.id between 8 and 12
+                """;
+
+        Query query = entityManager.createQuery(jpql);
+        query.executeUpdate();
+        entityManager.getTransaction().commit();
+    }
+
+    @Test
     public void atualizarEmLote() {
         String jpql = """
                     update
