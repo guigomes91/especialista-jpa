@@ -2,6 +2,10 @@ insert into produto (id, nome, preco, data_criacao, descricao) values (1, 'Kindl
 insert into produto (id, nome, preco, data_criacao, descricao) values (3, 'Camera GoPro Hero7', 1400.0, date_sub(sysdate(), interval 1 day), 'Melhor camera do mercado, foco e ação!');
 insert into produto (id, nome, preco, data_criacao, descricao) values (4, 'Câmera Canon 80D', 3500.0, sysdate(), 'O melhor ajuste de foco.');
 
+insert into estoque (quantidade, produto_id) values (100, 1);
+insert into estoque (quantidade, produto_id) values (200, 4);
+insert into estoque (quantidade, produto_id) values (400, 3);
+
 insert into cliente (id, nome, cpf) values (1, 'Maria José', '123456');
 insert into cliente (id, nome, cpf) values (2, 'João Pedro', '1234567');
 
