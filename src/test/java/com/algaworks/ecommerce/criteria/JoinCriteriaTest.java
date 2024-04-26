@@ -1,8 +1,10 @@
 package com.algaworks.ecommerce.criteria;
 
 import com.algaworks.ecommerce.EntityManagerTest;
-import com.algaworks.model.*;
-import org.hibernate.query.criteria.internal.expression.ParameterExpressionImpl;
+import com.algaworks.model.ItemPedido;
+import com.algaworks.model.Pagamento;
+import com.algaworks.model.Pedido;
+import com.algaworks.model.StatusPagamento;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -23,7 +25,7 @@ public class JoinCriteriaTest extends EntityManagerTest {
         Join<Pedido, ItemPedido> joinItens = root.join("itens");
 
         criteriaQuery.select(root);
-        criteriaQuery.where(criteriaBuilder.equal(joinItens.get("produto"), 3));
+        criteriaQuery.where(criteriaBuilder.equal(joinItens.get("produto"), 1));
 
         TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
         List<Pedido> pedidos = typedQuery.getResultList();
