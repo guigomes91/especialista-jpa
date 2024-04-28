@@ -1,10 +1,7 @@
 package com.algaworks.ecommerce.criteria;
 
 import com.algaworks.ecommerce.EntityManagerTest;
-import com.algaworks.model.Cliente;
-import com.algaworks.model.Cliente_;
-import com.algaworks.model.Produto;
-import com.algaworks.model.Produto_;
+import com.algaworks.model.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,9 +10,61 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ExpressoesCondicionaisCriteriaTest extends EntityManagerTest {
+    @Test
+    public void usarExpressaoDiferente() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
+
+        criteriaQuery
+                .select(root)
+                .where(criteriaBuilder.notEqual(root.get(Pedido_.total), new BigDecimal(499)));
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Pedido> pedidos = typedQuery.getResultList();
+        Assert.assertFalse(pedidos.isEmpty());
+
+        pedidos.forEach(pedido -> System.out.println("ID: " + pedido.getId() + ", Data: " + pedido.getDataCriacao() + ", Total: " + pedido.getTotal()));
+    }
+
+    @Test
+    public void usarBetween() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
+
+        criteriaQuery
+                .select(root)
+                .where(criteriaBuilder.between(root.get(Pedido_.total), new BigDecimal(499), new BigDecimal(2398)));
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Pedido> pedidos = typedQuery.getResultList();
+        Assert.assertFalse(pedidos.isEmpty());
+
+        pedidos.forEach(pedido -> System.out.println("ID: " + pedido.getId() + ", Data: " + pedido.getDataCriacao()));
+    }
+
+    @Test
+    public void usarMaiorMenorComDatas() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
+
+        criteriaQuery
+                .select(root)
+                .where(criteriaBuilder.greaterThan(root.get(Pedido_.dataCriacao), LocalDateTime.now().minusDays(4)),
+                        criteriaBuilder.lessThanOrEqualTo(root.get(Pedido_.dataCriacao), LocalDateTime.now()));
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Pedido> pedidos = typedQuery.getResultList();
+        Assert.assertFalse(pedidos.isEmpty());
+
+        pedidos.forEach(pedido -> System.out.println("ID: " + pedido.getId() + ", Data: " + pedido.getDataCriacao()));
+    }
 
     @Test
     public void usarMaiorMenor() {
