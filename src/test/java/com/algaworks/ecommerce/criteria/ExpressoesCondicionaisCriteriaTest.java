@@ -15,6 +15,58 @@ import java.util.List;
 
 public class ExpressoesCondicionaisCriteriaTest extends EntityManagerTest {
     @Test
+    public void ordenarResultados() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
+        Root<Cliente> root = criteriaQuery.from(Cliente.class);
+
+        criteriaQuery
+                .orderBy(
+                        criteriaBuilder.asc(root.get(Cliente_.nome))
+                );
+
+        TypedQuery<Cliente> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Cliente> clientes = typedQuery.getResultList();
+        Assert.assertFalse(clientes.isEmpty());
+
+        clientes.forEach(cliente -> System.out.println("ID: " + cliente.getId() + ", nome: " + cliente.getNome()));
+    }
+
+    @Test
+    public void usarOperadores() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
+
+        /*  Como vai sera criado o SQL pelo criteria api
+            select p from Pedido p where (status = 'PAGO' or status = 'AGUARDANDO') and total > 499
+        */
+        criteriaQuery
+                .select(root)
+                .where(
+                        criteriaBuilder.or(
+                                criteriaBuilder.greaterThan(
+                                    root.get(Pedido_.status), StatusPedido.AGUARDANDO),
+                                criteriaBuilder.equal(
+                                        root.get(Pedido_.status), StatusPedido.PAGO)
+                        ),
+                        criteriaBuilder.greaterThan(
+                                root.get(Pedido_.total), new BigDecimal(499)
+                        )
+                );
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Pedido> pedidos = typedQuery.getResultList();
+        Assert.assertFalse(pedidos.isEmpty());
+
+        pedidos.forEach(pedido ->
+                System.out.println(
+                        "ID: " + pedido.getId() + ", Data: " + pedido.getDataCriacao() + ", Total: " + pedido.getTotal()
+                )
+        );
+    }
+
+    @Test
     public void usarExpressaoDiferente() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);

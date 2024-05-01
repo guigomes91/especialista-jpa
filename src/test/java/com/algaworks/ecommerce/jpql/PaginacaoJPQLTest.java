@@ -9,7 +9,6 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class PaginacaoJPQLTest extends EntityManagerTest {
-
     @Test
     public void usarPaginacao() {
         String jpql = "select c from Categoria c order by c.nome";
