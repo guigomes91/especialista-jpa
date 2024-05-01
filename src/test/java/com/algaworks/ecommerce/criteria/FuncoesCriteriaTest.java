@@ -17,6 +17,65 @@ import java.util.List;
 
 public class FuncoesCriteriaTest extends EntityManagerTest {
     @Test
+    public void aplicarFuncaoColecao() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
+
+        criteriaQuery.multiselect(
+                root.get(Pedido_.id),
+                criteriaBuilder.size(root.get(Pedido_.itens))
+        );
+
+        criteriaQuery
+                .where(
+                        criteriaBuilder.greaterThan(
+                                criteriaBuilder.size(root.get(Pedido_.itens)), 1
+                        )
+                );
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(criteriaQuery);
+
+        List<Object[]> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(arr -> System.out.println(arr[0] + ", size: " + arr[1]));
+    }
+
+    @Test
+    public void aplicarFuncaoNumero() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
+
+        criteriaQuery.multiselect(
+                root.get(Pedido_.id),
+                criteriaBuilder.abs(criteriaBuilder.prod(root.get(Pedido_.id), 1)),
+                criteriaBuilder.mod(root.get(Pedido_.id), 2),
+                criteriaBuilder.sqrt(root.get(Pedido_.total))
+        );
+
+        criteriaQuery
+                .where(
+                        criteriaBuilder.greaterThan(
+                                criteriaBuilder.sqrt(root.get(Pedido_.total)), 10.0
+                        )
+                );
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(criteriaQuery);
+
+        List<Object[]> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(arr -> System.out.println(
+                arr[0]
+                        + ", abs: " + arr[1]
+                        + ", mod: " + arr[2]
+                        + ", sqrt: " + arr[3]
+        ));
+    }
+
+    @Test
     public void aplicarFuncaoData() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
