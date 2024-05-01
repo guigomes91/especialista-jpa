@@ -2,20 +2,41 @@ package com.algaworks.ecommerce.criteria;
 
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.model.*;
-import com.algaworks.model.dto.ProdutoDTO;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
-import java.math.BigDecimal;
 import java.util.List;
 
 public class FuncoesCriteriaTest extends EntityManagerTest {
+    @Test
+    public void aplicarFuncaoNativa() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
+
+        criteriaQuery
+                .multiselect(
+                    root.get(Pedido_.id),
+                    criteriaBuilder.function("dayname", String.class, root.get(Pedido_.dataCriacao))
+                )
+                .where(
+                        criteriaBuilder.isTrue(criteriaBuilder.function("acima_media_faturamento", Boolean.class, root.get(Pedido_.total)))
+                );
+
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(criteriaQuery);
+
+        List<Object[]> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(arr -> System.out.println(arr[0] + ", dayname: " + arr[1]));
+    }
+
     @Test
     public void aplicarFuncaoColecao() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
