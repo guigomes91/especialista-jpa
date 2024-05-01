@@ -28,7 +28,11 @@ public class ExpressoesCondicionaisCriteriaTest extends EntityManagerTest {
         List<Pedido> pedidos = typedQuery.getResultList();
         Assert.assertFalse(pedidos.isEmpty());
 
-        pedidos.forEach(pedido -> System.out.println("ID: " + pedido.getId() + ", Data: " + pedido.getDataCriacao() + ", Total: " + pedido.getTotal()));
+        pedidos.forEach(pedido ->
+                System.out.println(
+                        "ID: " + pedido.getId() + ", Data: " + pedido.getDataCriacao() + ", Total: " + pedido.getTotal()
+                )
+        );
     }
 
     @Test
