@@ -31,6 +31,7 @@ insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) value
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (5, 1, 799, 1);
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (6, 1, 799, 1);
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (7, 1, 200, 1);
+insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (7, 4, 3200, 1);
 
 insert into pagamento (pedido_id, status, tipo_pagamento, numero_cartao, codigo_barras) values (1, 'RECEBIDO', 'cartao', '0123', null);
 insert into pagamento (pedido_id, status, tipo_pagamento, numero_cartao, codigo_barras) values (2, 'PROCESSANDO', 'cartao', '4567', null);

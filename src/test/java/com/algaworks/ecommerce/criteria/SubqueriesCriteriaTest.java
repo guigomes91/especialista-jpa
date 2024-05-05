@@ -11,6 +11,35 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class SubqueriesCriteriaTest extends EntityManagerTest {
+
+    @Test
+    public void pesquisarComExistsExercicio() {
+        //Pesquisar todos produtos que já foram vendidos por um preço diferente do preço atual
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Produto> criteriaQuery = criteriaBuilder.createQuery(Produto.class);
+        Root<Produto> root = criteriaQuery.from(Produto.class);
+        criteriaQuery.select(root);
+
+        Subquery<Integer> subquery = criteriaQuery.subquery(Integer.class);
+        Root<ItemPedido> subqueryRoot = subquery.from(ItemPedido.class);
+        Join<ItemPedido, Produto> joinProduto = subqueryRoot.join(ItemPedido_.produto);
+
+        subquery.select(criteriaBuilder.literal(1))
+                .where(
+                        criteriaBuilder.notEqual(subqueryRoot.get(ItemPedido_.precoProduto), joinProduto.get(Produto_.preco)),
+                        criteriaBuilder.equal(subqueryRoot.get(ItemPedido_.produto), root)
+                );
+
+        criteriaQuery.where(criteriaBuilder.exists(subquery));
+
+        TypedQuery<Produto> typedQuery = entityManager.createQuery(criteriaQuery);
+
+        List<Produto> lista = typedQuery.getResultList();
+        Assert.assertNotNull(lista.isEmpty());
+        lista.forEach(obj -> System.out.println("ID: " + obj.getId()));
+    }
+
     @Test
     public void pesquisarComINExercicio() {
         //Pesquisar pedidos que tem algum produto da categoria 2
