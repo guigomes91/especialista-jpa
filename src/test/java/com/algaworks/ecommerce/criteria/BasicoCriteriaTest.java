@@ -3,6 +3,7 @@ package com.algaworks.ecommerce.criteria;
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.model.Cliente;
 import com.algaworks.model.Pedido;
+import com.algaworks.model.Pedido_;
 import com.algaworks.model.Produto;
 import com.algaworks.model.dto.ProdutoDTO;
 import org.hibernate.Criteria;
@@ -19,6 +20,23 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class BasicoCriteriaTest extends EntityManagerTest {
+    @Test
+    public void usarDistinct() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
+        root.join(Pedido_.itens);
+
+        criteriaQuery.select(root)
+                .distinct(true);
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
+
+        List<Pedido> pedidos = typedQuery.getResultList();
+        Assert.assertNotNull(pedidos.isEmpty());
+        pedidos.forEach(pedido -> System.out.println("ID: " + pedido.getId()));
+    }
+
     @Test
     public void projetarResultadoDTO() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
