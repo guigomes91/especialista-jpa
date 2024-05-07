@@ -96,7 +96,6 @@ public class SubqueriesCriteriaTest extends EntityManagerTest {
         List<Cliente> clientes = typedQuery.getResultList();
         Assert.assertNotNull(clientes.isEmpty());
         clientes.forEach(cliente -> System.out.println("ID: " + cliente.getId() + ", Nome: " + cliente.getNome()));
-
     }
 
     @Test
