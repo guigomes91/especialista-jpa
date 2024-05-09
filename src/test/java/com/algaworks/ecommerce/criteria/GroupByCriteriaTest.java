@@ -12,11 +12,11 @@ import java.util.List;
 public class GroupByCriteriaTest extends EntityManagerTest {
     @Test
     public void condicionarAgrupamentoComHaving() {
-//         Total de vendas dentre as categorias que mais vendem.
-//        String jpql = "select cat.nome, sum(ip.precoProduto) from ItemPedido ip " +
-//                " join ip.produto pro join pro.categorias cat " +
-//                " group by cat.id " +
-//                " having sum(ip.precoProduto) > 100 ";
+        //         Total de vendas dentre as categorias que mais vendem.
+        //        String jpql = "select cat.nome, sum(ip.precoProduto) from ItemPedido ip " +
+        //                " join ip.produto pro join pro.categorias cat " +
+        //                " group by cat.id " +
+        //                " having sum(ip.precoProduto) > 100 ";
 
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
