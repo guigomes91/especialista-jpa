@@ -1,14 +1,80 @@
 package com.algaworks.ecommerce.consultasnativas;
 
 import com.algaworks.ecommerce.EntityManagerTest;
-import com.algaworks.model.ItemPedido;
+import com.algaworks.model.Categoria;
 import com.algaworks.model.Produto;
+import com.algaworks.model.dto.CategoriaDTO;
+import com.algaworks.model.dto.ProdutoDTO;
 import org.junit.Test;
 
 import javax.persistence.Query;
 import java.util.List;
 
 public class ConsultaNativaTest extends EntityManagerTest {
+
+    @Test
+    public void mapearConsultaParaDTOEmArquivoExternoExercicio() {
+        Query query = entityManager.createNamedQuery("ecm_categoria.listar.dto");
+
+        List<CategoriaDTO> lista = query.getResultList();
+        lista.stream().forEach(arr -> System.out.println(
+                String.format("CategoriaDTO => ID: %s, Nome: %s", arr.getId(), arr.getNome())
+        ));
+    }
+
+    @Test
+    public void usarArquivoXML() {
+        Query query = entityManager.createNamedQuery("ecm_categoria.listar");
+
+        List<Categoria> lista = query.getResultList();
+        lista.stream().forEach(arr -> System.out.println(
+                String.format("Categoria => ID: %s, Nome: %s", arr.getId(), arr.getNome())
+        ));
+    }
+
+    @Test
+    public void usarUmaNamedNativeQuery02() {
+        Query query = entityManager.createNamedQuery("ecm_produto.listar");
+
+        List<Produto> lista = query.getResultList();
+        lista.stream().forEach(arr -> System.out.println(
+                String.format("Produto => ID: %s, Nome: %s", arr.getId(), arr.getNome())
+        ));
+    }
+
+    @Test
+    public void usarUmaNamedNativeQuery() {
+        Query query = entityManager.createNamedQuery("produto_loja.listar");
+
+        List<Produto> lista = query.getResultList();
+        lista.stream().forEach(arr -> System.out.println(
+                String.format("Produto => ID: %s, Nome: %s", arr.getId(), arr.getNome())
+        ));
+    }
+
+    @Test
+    public void usarColumnResultRetornarDTO() {
+        String sql = "select * from ecm_produto";
+
+        Query query = entityManager.createNativeQuery(sql, "ecm_produto.ProdutoDTO");
+
+        List<ProdutoDTO> lista = query.getResultList();
+        lista.stream().forEach(arr -> System.out.println(
+                String.format("ProdutoDTO => ID: %s, Nome: %s", arr.getId(), arr.getNome())
+        ));
+    }
+
+    @Test
+    public void usarFieldResult() {
+        String sql = "select * from ecm_produto";
+
+        Query query = entityManager.createNativeQuery(sql, "ecm_produto.Produto");
+
+        List<Produto> lista = query.getResultList();
+        lista.stream().forEach(arr -> System.out.println(
+                String.format("Produto => ID: %s, Nome: %s", arr.getId(), arr.getNome())
+        ));
+    }
 
     @Test
     public void usarSQLResultSetMapping02() {
