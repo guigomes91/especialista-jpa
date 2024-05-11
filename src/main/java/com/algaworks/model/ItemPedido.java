@@ -7,6 +7,10 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
+@SqlResultSetMappings({
+        @SqlResultSetMapping(name = "item_pedido-produto.ItemPedido-Produto",
+                entities = {@EntityResult(entityClass = ItemPedido.class), @EntityResult(entityClass = Produto.class)})
+})
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
 @NoArgsConstructor

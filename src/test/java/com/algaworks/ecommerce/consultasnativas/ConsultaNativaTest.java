@@ -1,6 +1,7 @@
 package com.algaworks.ecommerce.consultasnativas;
 
 import com.algaworks.ecommerce.EntityManagerTest;
+import com.algaworks.model.ItemPedido;
 import com.algaworks.model.Produto;
 import org.junit.Test;
 
@@ -8,6 +9,31 @@ import javax.persistence.Query;
 import java.util.List;
 
 public class ConsultaNativaTest extends EntityManagerTest {
+
+    @Test
+    public void usarSQLResultSetMapping02() {
+        String sql = "select ip.*, p.* from item_pedido ip join produto p on p.id = ip.produto_id";
+
+        Query query = entityManager.createNativeQuery(sql, "item_pedido-produto.ItemPedido-Produto");
+
+        List<Object[]> lista = query.getResultList();
+        lista.stream().forEach(arr -> System.out.println(
+                String.format("Produto => ID: %s, Nome: %s", ((Produto) arr[1]).getId(), ((Produto) arr[1]).getNome())
+        ));
+    }
+
+    @Test
+    public void usarSQLResultSetMapping() {
+                String sql = "select id, nome, descricao, data_criacao, data_ultima_atualizacao, preco, foto " +
+                " from produto";
+
+        Query query = entityManager.createNativeQuery(sql, "produto.Produto");
+
+        List<Produto> lista = query.getResultList();
+        lista.stream().forEach(arr -> System.out.println(
+                String.format("Produto => ID: %s, Nome: %s", arr.getId(), arr.getNome())
+        ));
+    }
 
     @Test
     public void executarSQLComParametro() {
