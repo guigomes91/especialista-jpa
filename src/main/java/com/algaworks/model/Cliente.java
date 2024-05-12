@@ -16,6 +16,12 @@ import java.util.Map;
 )
 @AllArgsConstructor
 @NoArgsConstructor
+@NamedStoredProcedureQuery(
+        name = "compraram_acima_media", procedureName = "compraram_acima_media",
+        parameters = {
+            @StoredProcedureParameter(name = "ano", type = Integer.class, mode = ParameterMode.IN)
+        },
+        resultClasses = Cliente.class)
 @Entity
 @Table(
         name = "cliente",
