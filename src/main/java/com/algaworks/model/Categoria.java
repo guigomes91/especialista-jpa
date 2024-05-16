@@ -3,6 +3,7 @@ package com.algaworks.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Getter
@@ -16,6 +17,7 @@ import java.util.List;
 )
 public class Categoria extends EntidadeBaseInteger {
 
+    @NotBlank
     @Column(length = 100, nullable = false)
     private String nome;
 

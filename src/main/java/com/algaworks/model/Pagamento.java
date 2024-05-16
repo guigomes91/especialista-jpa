@@ -3,6 +3,7 @@ package com.algaworks.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -17,6 +18,7 @@ import javax.persistence.*;
 @Table(name = "pagamento")
 public abstract class Pagamento extends EntidadeBaseInteger {
 
+    @NotNull
     @MapsId
     @OneToOne(optional = false)
     @JoinColumn(
@@ -26,6 +28,7 @@ public abstract class Pagamento extends EntidadeBaseInteger {
     )
     private Pedido pedido;
 
+    @NotNull
     @Column(length = 30, nullable = false)
     @Enumerated(EnumType.STRING)
     private StatusPagamento status;

@@ -6,6 +6,7 @@ import lombok.*;
 import org.apache.commons.collections4.CollectionUtils;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
 @Table(name = "pedido")
 public class Pedido extends EntidadeBaseInteger {
 
+    @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(
             name = "cliente_id", nullable = false,
@@ -26,18 +28,25 @@ public class Pedido extends EntidadeBaseInteger {
     )
     private Cliente cliente;
 
+    @NotNull
+    @PastOrPresent
     @Column(name = "data_criacao", updatable = false)
     private LocalDateTime dataCriacao;
 
+    @FutureOrPresent
     @Column(name = "data_conclusao")
     private LocalDateTime dataConclusao;
 
+    @PastOrPresent
     @Column(name = "data_ultima_atualizacao", insertable = false)
     private LocalDateTime dataUltimaAtualizacao;
 
     @OneToOne(mappedBy = "pedido")
     private NotaFiscal notaFiscal;
 
+    @NotNull
+    @Positive
+    @Digits(integer = 10, fraction = 2, message = "Valor total inválido")
     @Column(nullable = false)
     private BigDecimal total;
 

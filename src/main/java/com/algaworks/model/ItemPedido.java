@@ -3,6 +3,10 @@ package com.algaworks.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 
 @Getter
@@ -21,6 +25,7 @@ public class ItemPedido {
     @EmbeddedId
     private ItemPedidoId id;
 
+    @NotNull
     @MapsId("pedidoId")
     @ManyToOne(optional = false)
     @JoinColumn(
@@ -30,6 +35,7 @@ public class ItemPedido {
     )
     private Pedido pedido;
 
+    @NotNull
     @MapsId("produtoId")
     @ManyToOne(optional = false)
     @JoinColumn(
@@ -39,9 +45,14 @@ public class ItemPedido {
     )
     private Produto produto;
 
+    @PositiveOrZero
+    @NotNull
+    @Digits(integer = 10, fraction = 2, message = "Limites não permitido para este preço")
     @Column(name = "preco_produto", nullable = false)
     private BigDecimal precoProduto;
 
+    @NotNull
+    @Min(value = 1, message = "Minimo para o estoque deve ser 1")
     @Column(nullable = false)
     private Integer quantidade;
 }

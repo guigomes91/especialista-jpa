@@ -3,6 +3,9 @@ package com.algaworks.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.util.Date;
 
 @Getter
@@ -13,6 +16,7 @@ import java.util.Date;
 @Table(name = "nota_fiscal")
 public class NotaFiscal extends EntidadeBaseInteger {
 
+    @NotNull
     @MapsId
     @OneToOne(optional = false)
     @JoinColumn(
@@ -26,10 +30,13 @@ public class NotaFiscal extends EntidadeBaseInteger {
     //)
     private Pedido pedido;
 
+    @NotEmpty
     @Lob
     @Column(length = 1000, nullable = false)
     private  byte[] xml;
 
+    @NotNull
+    @PastOrPresent
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "data_emissao", nullable = false)
     private Date dataEmissao;

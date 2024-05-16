@@ -3,6 +3,7 @@ package com.algaworks.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
@@ -13,6 +14,7 @@ import javax.persistence.*;
 @Table(name = "pagamento_cartao")
 public class PagamentoCartao extends Pagamento {
 
+    @NotBlank
     @Column(name = "numero_cartao", length = 50)
     private String numeroCartao;
 }
