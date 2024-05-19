@@ -1,7 +1,7 @@
-insert into produto (id, nome, preco, data_criacao, descricao) values (1, 'Kindle', 799.0, date_sub(sysdate(), interval 1 day), 'Conheça o novo Kindle, agora com iluminação embutida ajustável, que permite que você leia em ambientes abertos ou fechados, a qualquer hora do dia.');
-insert into produto (id, nome, preco, data_criacao, descricao) values (3, 'Camera GoPro Hero7', 1400.0, date_sub(sysdate(), interval 1 day), 'Melhor camera do mercado, foco e ação!');
-insert into produto (id, nome, preco, data_criacao, descricao) values (4, 'Câmera Canon 80D', 3500.0, sysdate(), 'O melhor ajuste de foco.');
-insert into produto (id, nome, preco, data_criacao, descricao) values (5, 'Microfone de Lapela', 50.0, sysdate(), 'Produto massa');
+insert into produto (id, nome, preco, data_criacao, descricao, ativo) values (1, 'Kindle', 799.0, date_sub(sysdate(), interval 1 day), 'Conheça o novo Kindle, agora com iluminação embutida ajustável, que permite que você leia em ambientes abertos ou fechados, a qualquer hora do dia.', 'SIM');
+insert into produto (id, nome, preco, data_criacao, descricao, ativo) values (3, 'Camera GoPro Hero7', 1400.0, date_sub(sysdate(), interval 1 day), 'Melhor camera do mercado, foco e ação!', 'SIM');
+insert into produto (id, nome, preco, data_criacao, descricao, ativo) values (4, 'Câmera Canon 80D', 3500.0, sysdate(), 'O melhor ajuste de foco.', 'SIM');
+insert into produto (id, nome, preco, data_criacao, descricao, ativo) values (5, 'Microfone de Lapela', 50.0, sysdate(), 'Produto massa', 'NAO');
 
 insert into estoque (quantidade, produto_id) values (100, 1);
 insert into estoque (quantidade, produto_id) values (200, 4);

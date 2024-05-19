@@ -1,6 +1,7 @@
 package com.algaworks.model;
 
 import com.algaworks.listener.GenericoListener;
+import com.algaworks.model.converter.BooleanToSimNaoConverter;
 import com.algaworks.model.dto.ProdutoDTO;
 import lombok.Getter;
 import lombok.Setter;
@@ -83,6 +84,11 @@ public class Produto extends EntidadeBaseInteger {
     @Lob
     @Column(length = 1000)
     private byte[] foto;
+
+    @Convert(converter = BooleanToSimNaoConverter.class)
+    @NotNull
+    @Column(length = 3, nullable = false)
+    private Boolean ativo = Boolean.FALSE;
 
     @ManyToMany
     @JoinTable(name = "produto_categoria",
