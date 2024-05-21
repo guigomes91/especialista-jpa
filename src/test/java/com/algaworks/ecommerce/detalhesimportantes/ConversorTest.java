@@ -17,6 +17,7 @@ public class ConversorTest extends EntityManagerTest {
         produto.setNome("Carregador de Notebook Dell");
         produto.setAtivo(Boolean.TRUE);
         produto.setPreco(new BigDecimal(299));
+        produto.setDescricao("Dell");
 
         entityManager.getTransaction().begin();
 
