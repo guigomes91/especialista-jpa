@@ -23,7 +23,7 @@ import java.util.List;
 public class Pedido extends EntidadeBaseInteger {
 
     @NotNull
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(
             name = "cliente_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_pedido_cliente")
@@ -43,7 +43,7 @@ public class Pedido extends EntidadeBaseInteger {
     @Column(name = "data_ultima_atualizacao", insertable = false)
     private LocalDateTime dataUltimaAtualizacao;
 
-    @OneToOne(mappedBy = "pedido")
+    @OneToOne(mappedBy = "pedido", fetch = FetchType.LAZY)
     private NotaFiscal notaFiscal;
 
     @NotNull
@@ -59,10 +59,10 @@ public class Pedido extends EntidadeBaseInteger {
     @Embedded
     private EnderecoEntregaPedido enderecoEntrega;
 
-    @OneToOne(mappedBy = "pedido")
+    @OneToOne(mappedBy = "pedido", fetch = FetchType.LAZY)
     private Pagamento pagamento;
 
-    @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "pedido", fetch = FetchType.LAZY)
     private List<ItemPedido> itens;
 
     public boolean isPago() {
