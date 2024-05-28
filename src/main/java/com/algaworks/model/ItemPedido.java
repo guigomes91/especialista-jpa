@@ -22,6 +22,9 @@ import java.math.BigDecimal;
 @Table(name = "item_pedido")
 public class ItemPedido {
 
+    @Version
+    private Integer versao;
+
     @EmbeddedId
     private ItemPedidoId id;
 

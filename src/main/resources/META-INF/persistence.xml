@@ -21,12 +21,12 @@
             <property name="hibernate.hikari.maximumPoolSize" value="16"/>
             <property name="hibernate.connection.provider_class" value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider"/>
 
-            <property name="hibernate.cache.region.factory_class"
+            <!--<property name="hibernate.cache.region.factory_class"
                       value="jcache"/>
             <property name="hibernate.jakarta.cache.provider"
                       value="org.ehcache.jsr107.EhcacheCachingProvider"/>
             <property name="hibernate.javax.cache.uri"
-                      value="META-INF/ehcache.xml"/>
+                      value="META-INF/ehcache.xml"/>-->
 
             <property name="javax.persistence.schema-generation.database.action" value="none"/>
 
