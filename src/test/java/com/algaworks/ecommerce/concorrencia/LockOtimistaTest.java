@@ -43,16 +43,16 @@ public class LockOtimistaTest {
             EntityManager entityManager1 = entityManagerFactory.createEntityManager();
             entityManager1.getTransaction().begin();
 
-            log("Runnable 01 vai carregar o produto 1.");
+            log("Cliente 01 vai carregar o produto 1.");
             Produto produto = entityManager1.find(Produto.class, 1);
 
-            log("Runnable 01 vai esperar por 3 segundos.");
+            log("Cliente 01 vai esperar por 3 segundos.");
             esperar(3);
 
-            log("Runnable 01 vai alterar o produto.");
+            log("Cliente 01 vai alterar o produto.");
             produto.setDescricao("Descrição detalhada.");
 
-            log("Runnable 01 vai confirmar a transação.");
+            log("Cliente 01 vai confirmar a transação.");
             entityManager1.getTransaction().commit();
             entityManager1.close();
         };
@@ -61,16 +61,16 @@ public class LockOtimistaTest {
             EntityManager entityManager2 = entityManagerFactory.createEntityManager();
             entityManager2.getTransaction().begin();
 
-            log("Runnable 02 vai carregar o produto 1.");
+            log("Cliente 02 vai carregar o produto 1.");
             Produto produto = entityManager2.find(Produto.class, 1);
 
-            log("Runnable 02 vai esperar por 1 segundo.");
+            log("Cliente 02 vai esperar por 1 segundo.");
             esperar(1);
 
-            log("Runnable 02 vai alterar o produto.");
+            log("Cliente 02 vai alterar o produto.");
             produto.setDescricao("Descrição massa!");
 
-            log("Runnable 02 vai confirmar a transação.");
+            log("Cliente 02 vai confirmar a transação.");
             entityManager2.getTransaction().commit();
             entityManager2.close();
         };
