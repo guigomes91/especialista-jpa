@@ -48,7 +48,7 @@
             <property name="jakarta.persistence.schema-generation.scripts.drop-target"
                       value="C:/tmp/sql/script-remocao-exportado.sql"/>
 
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDB10Dialect" />
 
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
