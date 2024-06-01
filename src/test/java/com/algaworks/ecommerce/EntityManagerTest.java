@@ -7,24 +7,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class EntityManagerTest {
+public class EntityManagerTest extends EntityManagerFactoryTest {
 
-    protected static EntityManagerFactory entityManagerFactory;
     protected EntityManager entityManager;
 
-    @BeforeClass
-    public static void setUpBeforeClass() {
-        entityManagerFactory = Persistence
-                .createEntityManagerFactory("Ecommerce-PU");
-    }
-
-    @AfterClass
-    public static void tearDownAfterClass() {
-        entityManagerFactory.close();
-    }
-
     @Before
-    public void setUP() {
+    public void setUp() {
         entityManager = entityManagerFactory.createEntityManager();
     }
 
