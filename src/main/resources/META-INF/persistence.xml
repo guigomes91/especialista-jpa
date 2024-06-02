@@ -20,11 +20,11 @@
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDB10Dialect" />
 
-            <property name="hibernate.multiTenancy" value="SCHEMA" />
+            <property name="hibernate.multiTenancy" value="DATABASE" />
             <property name="hibernate.tenant_identifier_resolver"
                       value="com.algaworks.hibernate.EcmCurrentTenantIdentifierResolver"/>
             <property name="hibernate.multi_tenant_connection_provider"
-                      value="com.algaworks.hibernate.EcmSchemaMultiTenantConnectionProvider"/>
+                      value="com.algaworks.hibernate.EcmMachineMultiTenantConnectionProvider"/>
 
             <property name="javax.persistence.schema-generation.database.action" value="none"/>
 
