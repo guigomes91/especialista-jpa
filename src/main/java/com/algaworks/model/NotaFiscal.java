@@ -1,6 +1,7 @@
 package com.algaworks.model;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -33,6 +34,7 @@ public class NotaFiscal extends EntidadeBaseInteger {
     @NotEmpty
     @Lob
     @Column(length = 1000, nullable = false)
+    @Type(type = "org.hibernate.type.BinaryType")
     private  byte[] xml;
 
     @NotNull

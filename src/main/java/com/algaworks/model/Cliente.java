@@ -27,7 +27,7 @@ import java.util.Map;
 @Table(
         name = "cliente",
         uniqueConstraints = { @UniqueConstraint(name = "unq_cpf", columnNames = { "cpf" }) },
-        indexes = { @Index(name = "idx_nome", columnList = "nome") }
+        indexes = { @Index(name = "idx_cliente_nome", columnList = "nome") }
 )
 public class Cliente extends EntidadeBaseInteger {
 

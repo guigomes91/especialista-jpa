@@ -5,6 +5,7 @@ import com.algaworks.model.converter.BooleanToSimNaoConverter;
 import com.algaworks.model.dto.ProdutoDTO;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -56,8 +57,8 @@ import java.util.List;
 @Entity
 @Table(
         name = "produto",
-        uniqueConstraints = { @UniqueConstraint(name = "unq_nome", columnNames = { "nome" }) },
-        indexes = { @Index(name = "idx_nome", columnList = "nome") }
+        uniqueConstraints = { @UniqueConstraint(name = "unq_produto_nome", columnNames = { "nome" }) },
+        indexes = { @Index(name = "idx_produto_nome", columnList = "nome") }
 )
 public class Produto extends EntidadeBaseInteger {
 
@@ -65,7 +66,7 @@ public class Produto extends EntidadeBaseInteger {
     @Column(length = 100, nullable = false)
     private String nome;
 
-    @Lob // descricao longtext
+    //@Lob // descricao longtext
     private String descricao;
 
     @NotNull
@@ -83,6 +84,7 @@ public class Produto extends EntidadeBaseInteger {
 
     @Lob
     @Column(length = 1000)
+    @Type(type = "org.hibernate.type.BinaryType")
     private byte[] foto;
 
     @Convert(converter = BooleanToSimNaoConverter.class)
