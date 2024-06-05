@@ -1,7 +1,8 @@
 package com.algaworks.util;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+
 import java.util.HashMap;
 import java.util.Map;
 

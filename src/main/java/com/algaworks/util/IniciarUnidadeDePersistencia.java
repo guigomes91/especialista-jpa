@@ -1,10 +1,9 @@
 package com.algaworks.util;
 
 import com.algaworks.model.Produto;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 public class IniciarUnidadeDePersistencia {
     public static void main(String[] args) {

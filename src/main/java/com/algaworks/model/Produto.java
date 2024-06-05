@@ -3,11 +3,12 @@ package com.algaworks.model;
 import com.algaworks.listener.GenericoListener;
 import com.algaworks.model.converter.BooleanToSimNaoConverter;
 import com.algaworks.model.dto.ProdutoDTO;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.NamedNativeQueries;
+import org.hibernate.annotations.NamedNativeQuery;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
@@ -84,7 +85,6 @@ public class Produto extends EntidadeBaseInteger {
 
     @Lob
     @Column(length = 1000)
-    @Type(type = "org.hibernate.type.BinaryType")
     private byte[] foto;
 
     @Convert(converter = BooleanToSimNaoConverter.class)

@@ -1,6 +1,6 @@
 package com.algaworks.listener;
 
-import javax.persistence.PostLoad;
+import jakarta.persistence.PostLoad;
 
 public class GenericoListener {
 
